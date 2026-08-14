@@ -160,8 +160,12 @@ function Man2({
     let focusNode: any = null
     clone.traverse((o: any) => {
       if (o.isMesh) {
-        o.castShadow = true
-        o.receiveShadow = true
+        // Sticker planes sit just above the skin. Letting them cast a real-time
+        // shadow creates dark rectangles that are not present in Blender's
+        // material preview, so keep stickers visually flat and bright.
+        const isSticker = o.name.toLowerCase().startsWith('sticker')
+        o.castShadow = !isSticker
+        o.receiveShadow = !isSticker
       }
       if (o.isCamera) glbCam = o
       // 首页锚点：兼容旧名 focus-start 与 intro3d 统一命名 focus-0
