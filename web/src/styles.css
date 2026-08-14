@@ -78,7 +78,7 @@ body,
 #root {
   width: 100%;
   min-height: 100%;
-  background: #0a0e16;
+  background: #f3c5d0;
   color: var(--ink);
 }
 
@@ -297,7 +297,8 @@ canvas {
   left: calc(var(--m) + 20px);
 }
 .hm-tr {
-  top: calc(var(--m) + 16px);
+  /* Leave a clear row for the fixed résumé and language controls. */
+  top: calc(var(--m) + 74px);
   right: calc(var(--m) + 20px);
   text-align: right;
 }
@@ -317,6 +318,9 @@ canvas {
 @media (max-width: 640px) {
   .hm-right {
     display: none;
+  }
+  .hm-tr {
+    top: calc(var(--m) + 116px);
   }
 }
 
