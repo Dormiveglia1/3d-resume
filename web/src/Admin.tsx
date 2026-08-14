@@ -72,7 +72,7 @@ export default function Admin() {
 
   async function uploadResume(file: File) {
     if (!supabase) return
-    if (file.type !== 'application/pdf') { setStatus('请选择 PDF 文件。'); return }
+    if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) { setStatus('请选择 PDF 文件。'); return }
     const { error } = await supabase.storage.from('portfolio-assets').upload(RESUME_FILE_PATH, file, { upsert: true, contentType: 'application/pdf', cacheControl: '60' })
     setStatus(error?.message || `简历已上传为 ${RESUME_DOWNLOAD_NAME}。刷新前台后会出现下载按钮。`)
   }
