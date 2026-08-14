@@ -520,13 +520,13 @@ function Post2({
   const post = {
     bloomIntensity: 0.6,
     bloomThreshold: 0.82,
-    // The character already has dense texture and face stickers; cinematic DoF
-    // makes them look soft whenever the camera moves close, so keep it disabled.
-    dof: false,
-    startBokeh: 7.4,
-    startRange: 2.0,
-    focusBokeh: 11.0,
-    focusRange: 0.15,
+    // A restrained DoF keeps a little depth, without softening sticker details
+    // during close camera moves.
+    dof: true,
+    startBokeh: 0.18,
+    startRange: 4.5,
+    focusBokeh: 0.55,
+    focusRange: 2.5,
     startBlendFrame: 48,
     endBlendFrame: RESUME_FRAMES - 50, // 末节点附近回到"起始帧"景深档（原 250−50=200）
   }
@@ -542,7 +542,10 @@ function Post2({
     const wStart = 1 - THREE.MathUtils.smoothstep(f, 0, post.startBlendFrame)
     const wEnd = THREE.MathUtils.smoothstep(f, post.endBlendFrame, RESUME_FRAMES)
     const w = Math.max(wStart, wEnd)
-    if (dofBokehRef && dofBokehRef.current >= 0) {
+    // Ignore the strong depth-of-field values embedded in the GLB animation.
+    // They were tuned for a bare character and blur the added sticker details.
+    const useEmbeddedDof = false
+    if (useEmbeddedDof && dofBokehRef && dofBokehRef.current >= 0) {
       // glb 自带逐锚点景深参数（intro3d 导出）：直接采用，忠实还原 intro3d 的虚化强度/清晰范围（bokeh=0 即该点关景深）。
       e.bokehScale = dofBokehRef.current
       if (e.cocMaterial) e.cocMaterial.focusRange = Math.max(1e-4, dofRangeRef ? dofRangeRef.current : post.focusRange)
