@@ -527,19 +527,22 @@ function Post2({
     // A restrained DoF keeps a little depth, without softening sticker details
     // during close camera moves.
     dof: true,
-    startBokeh: 1.4,
-    startRange: 2.0,
-    focusBokeh: 3.5,
-    focusRange: 0.55,
+    startBokeh: 1.8,
+    startRange: 1.7,
+    focusBokeh: 4.2,
+    focusRange: 0.5,
     startBlendFrame: 48,
     endBlendFrame: RESUME_FRAMES - 50, // 末节点附近回到"起始帧"景深档（原 250−50=200）
   }
 
   const dofRef = useRef<any>(null)
-  useFrame(() => {
+  useFrame(({ camera }) => {
     const e = dofRef.current
     if (!e) return
-    if (e.target && focusRef) e.target.copy(focusRef.current)
+    // Do not rely on postprocessing's optional autofocus target here. The GLB
+    // camera moves every frame, and explicitly measuring the current camera →
+    // anchor distance makes the focus plane update reliably on every browser.
+    e.focusDistance = camera.position.distanceTo(focusRef.current)
     // 权重 w=1 用"开始帧档"，w=0 用"聚焦点档"。
     // 开头(f→0)和末节点(f→RESUME_FRAMES)都取开始帧档；中间各节点取聚焦点档。
     const f = frameRef ? frameRef.current : 0
@@ -552,11 +555,11 @@ function Post2({
     if (useEmbeddedDof && dofBokehRef && dofBokehRef.current >= 0) {
       // glb 自带逐锚点景深参数（intro3d 导出）：直接采用，忠实还原 intro3d 的虚化强度/清晰范围（bokeh=0 即该点关景深）。
       e.bokehScale = dofBokehRef.current
-      if (e.cocMaterial) e.cocMaterial.focusRange = Math.max(1e-4, dofRangeRef ? dofRangeRef.current : post.focusRange)
+      e.focusRange = Math.max(1e-4, dofRangeRef ? dofRangeRef.current : post.focusRange)
     } else {
       // 老 glb（无逐锚点参数）：沿用原全局帧混合档位。
       e.bokehScale = THREE.MathUtils.lerp(post.focusBokeh, post.startBokeh, w)
-      if (e.cocMaterial) e.cocMaterial.focusRange = THREE.MathUtils.lerp(post.focusRange, post.startRange, w)
+      e.focusRange = THREE.MathUtils.lerp(post.focusRange, post.startRange, w)
     }
   })
 
@@ -565,8 +568,8 @@ function Post2({
       {(post.dof ? (
         <DepthOfField
           ref={dofRef}
-          target={[0, 1.3, 0]}
-          worldFocusRange={post.focusRange}
+          focusDistance={3}
+          focusRange={post.focusRange}
           bokehScale={post.focusBokeh}
           height={480}
         />
