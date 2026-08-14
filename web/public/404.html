@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting…</title>
+    <script>
+      // GitHub Pages has no server-side SPA rewrites. Preserve the requested
+      // sub-route and query (including Supabase magic-link parameters) before
+      // returning to the Vite app at the project root.
+      (function () {
+        var segments = window.location.pathname.split('/');
+        var base = segments.slice(0, 2).join('/') + '/';
+        var route = '/' + segments.slice(2).join('/');
+        var query = new URLSearchParams(window.location.search);
+        query.set('route', route);
+        window.location.replace(base + '?' + query.toString() + window.location.hash);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
