@@ -520,7 +520,9 @@ function Post2({
   const post = {
     bloomIntensity: 0.6,
     bloomThreshold: 0.82,
-    dof: true,
+    // The character already has dense texture and face stickers; cinematic DoF
+    // makes them look soft whenever the camera moves close, so keep it disabled.
+    dof: false,
     startBokeh: 7.4,
     startRange: 2.0,
     focusBokeh: 11.0,

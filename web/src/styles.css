@@ -254,7 +254,7 @@ canvas {
   position: absolute;
   font-size: 13px;
   line-height: 1;
-  color: rgba(244, 241, 234, 0.32);
+  color: rgba(255, 250, 252, 0.62);
 }
 .hero-mark.tl {
   top: var(--m);
@@ -284,13 +284,13 @@ canvas {
   letter-spacing: 0.26em;
   text-transform: uppercase;
   line-height: 1.6;
-  color: rgba(244, 241, 234, 0.46);
+  color: rgba(255, 250, 252, 0.74);
 }
 .hero-meta .hm-name {
   display: block;
   text-transform: none;
   letter-spacing: 0.12em;
-  color: rgba(244, 241, 234, 0.7);
+  color: rgba(255, 250, 252, 0.92);
 }
 .hm-tl {
   top: calc(var(--m) + 16px);
@@ -1513,13 +1513,13 @@ canvas {
 
 .lr-arc {
   fill: none;
-  stroke: #6f906f;
+  stroke: #efb7c7;
   stroke-width: 3;
   stroke-linecap: round;
   transform: rotate(-90deg);
   transform-origin: 50% 50%;
   transition: stroke-dashoffset 0.35s ease;
-  filter: drop-shadow(0 0 6px rgba(111, 144, 111, 0.55));
+  filter: drop-shadow(0 0 6px rgba(239, 183, 199, 0.62));
 }
 
 @keyframes lrSpin {
