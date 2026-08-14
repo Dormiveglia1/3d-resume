@@ -54,6 +54,8 @@
 .admin-save-bar p { margin: 0; color: #d7deeb; font-size: 14px; line-height: 1.35; }
 .admin-save-bar button { flex: none; margin: 0; white-space: nowrap; }
 .admin-upload-status { margin: 12px 0 0; color: #d8ff59; }
+.admin-file-status { margin: 12px 0 0; color: #aeb9ca; }
+.admin-file-status.is-ready { color: #d8ff59; }
 @media (max-width: 760px) {
   .admin-save-bar { right: 16px; bottom: 16px; max-width: calc(100vw - 32px); }
   .admin-save-bar p { font-size: 12px; }

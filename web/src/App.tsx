@@ -1,4 +1,4 @@
-import { Suspense, useEffect, useRef, useState } from 'react'
+import { Suspense, useRef, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { motion, useScroll, useTransform, type MotionValue } from 'framer-motion'
 import * as THREE from 'three'
@@ -46,7 +46,7 @@ function LangToggle({ lang, onToggle }: { lang: Lang; onToggle: () => void }) {
 
 export default function App() {
   const [lang, setLang] = useState<Lang>('en')
-  const [resumeUrl, setResumeUrl] = useState('')
+  const resumeUrl = getResumeDownloadUrl()
   const worksRef = useRef(null)
   const { scrollY } = useScroll()
   const { scrollYProgress: worksProgress } = useScroll({ target: worksRef, offset: ['start end', 'start center'] })
@@ -55,10 +55,5 @@ export default function App() {
   const cueOpacity = useTransform(scrollY, [0, 160], [1, 0])
   const railOpacity = useTransform(scrollY, [window.innerHeight * 0.5, window.innerHeight * 1.1], [0, 1])
   const chromeOpacity = useTransform(scrollY, [0, 280], [1, 0])
-  useEffect(() => {
-    const url = getResumeDownloadUrl()
-    if (!url) return
-    fetch(url, { method: 'HEAD' }).then((response) => setResumeUrl(response.ok ? url : '')).catch(() => setResumeUrl(''))
-  }, [])
   return <><LoadingScreen /><div className="scene-bg"><Canvas shadows={{ type: THREE.PCFShadowMap }} dpr={[1, 1.5]} camera={{ position: [0, 5, 19], fov: 39, near: 0.1, far: 500 }} gl={{ antialias: false, stencil: false, depth: true, toneMapping: THREE.ACESFilmicToneMapping }}><color attach="background" args={['#0a0e16']} /><Suspense fallback={null}><Backdrop /><Scene /></Suspense></Canvas></div><motion.div className="scrim" style={{ opacity: scrimOpacity }} aria-hidden="true" /><motion.div className="stage-fog" style={{ background: fogBg }} aria-hidden="true" /><motion.div className="glass-rail" style={{ opacity: railOpacity }} aria-hidden="true" />{resumeUrl && <a className="resume-download" href={resumeUrl} aria-label="Download Eric Zhang's resume">{lang === 'en' ? 'Download Resume' : 'Download CV'}</a>}<LangToggle lang={lang} onToggle={() => setLang((current) => current === 'en' ? 'zh' : 'en')} /><motion.div className="hero-chrome" style={{ opacity: chromeOpacity }} aria-hidden="true"><div className="hero-frame" /><span className="hero-mark tl">+</span><span className="hero-mark tr">+</span><span className="hero-mark bl">+</span><span className="hero-mark br">+</span><div className="hero-meta hm-tl"><span className="hm-name">Yuhao “Eric” Zhang</span><span>Computer Science · McMaster University</span></div><div className="hero-meta hm-tr">Eric Zhang · Portfolio</div><div className="hero-meta hm-bl">AI · Build · Play</div><div className="hero-meta hm-right">Hamilton · Ontario</div></motion.div><NoiseOverlay /><main className="content"><Hero lang={lang} cueOpacity={cueOpacity} /><Resume lang={lang} /><Works lang={lang} innerRef={worksRef} /></main></>
 }
