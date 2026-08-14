@@ -84,4 +84,4 @@ React · TypeScript · Vite · Three.js · React Three Fiber · Drei · Framer M
 
 ## Credits and license
 
-This is Eric Zhang’s independent portfolio implementation and personal content. The repository uses the MIT license for code. Third-party logos, brand assets, and linked project materials remain the property of their respective owners.
+This is Eric Zhang’s independent portfolio implementation and personal content. Its codebase was adapted from the MIT-licensed [sen-3d-resume](https://github.com/dayinji/sen-3d-resume) project; the required upstream copyright notice is retained in [`LICENSE`](LICENSE). All original personal assets, examples, and tutorial material have been removed and replaced. Third-party logos, brand assets, and linked project materials remain the property of their respective owners.
