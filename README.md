@@ -50,6 +50,13 @@ VITE_SUPABASE_ANON_KEY=your-publishable-key
 
 Then apply the SQL migrations in [`web/supabase`](web/supabase) through the Supabase SQL Editor, add your authenticated user to `admin_users`, and configure the allowed redirect URL for local development and the deployed Pages URL.
 
+For GitHub Pages, add these two **Repository secrets** in **Settings → Secrets and variables → Actions** before deploying:
+
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_ANON_KEY` (paste the Supabase **Publishable key**)
+
+The site receives these browser configuration values at build time. Actions secrets keep them out of repository files and commit history.
+
 The admin area maintains Chinese and English versions of both the camera-linked resume stops and Works content. New resume stops need a corresponding `focus-*` empty and camera keyframe in Blender; Works entries do not require new 3D nodes.
 
 ## 3D model contract
@@ -68,6 +75,8 @@ The production model has been decimated in Blender to keep page delivery practic
 The workflow in [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) installs dependencies, builds `web/`, and deploys `web/dist` whenever `main` is updated.
 
 In the GitHub repository, set **Settings → Pages → Build and deployment → Source** to **GitHub Actions** once. Every later push to `main` deploys automatically.
+
+Also add `https://dormiveglia1.github.io/3d-resume/admin` to **Supabase → Authentication → URL Configuration → Redirect URLs** so passwordless admin login can return to the deployed site.
 
 ## Tech stack
 
