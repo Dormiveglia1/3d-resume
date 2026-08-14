@@ -527,10 +527,13 @@ function Post2({
     // A restrained DoF keeps a little depth, without softening sticker details
     // during close camera moves.
     dof: true,
-    startBokeh: 1.8,
-    startRange: 1.7,
-    focusBokeh: 4.2,
-    focusRange: 0.5,
+    // Hero opens wide: keep it fully crisp.  Only the closer resume shots
+    // receive a small amount of falloff, so it reads as depth rather than a
+    // permanently soft render on mobile.
+    startBokeh: 0.01,
+    startRange: 4.0,
+    focusBokeh: 2.6,
+    focusRange: 0.72,
     startBlendFrame: 48,
     endBlendFrame: RESUME_FRAMES - 50, // 末节点附近回到"起始帧"景深档（原 250−50=200）
   }
