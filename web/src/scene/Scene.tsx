@@ -523,10 +523,10 @@ function Post2({
     // A restrained DoF keeps a little depth, without softening sticker details
     // during close camera moves.
     dof: true,
-    startBokeh: 0.18,
-    startRange: 4.5,
-    focusBokeh: 0.55,
-    focusRange: 2.5,
+    startBokeh: 0.4,
+    startRange: 3.0,
+    focusBokeh: 1.25,
+    focusRange: 0.9,
     startBlendFrame: 48,
     endBlendFrame: RESUME_FRAMES - 50, // 末节点附近回到"起始帧"景深档（原 250−50=200）
   }
