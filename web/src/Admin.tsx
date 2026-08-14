@@ -14,6 +14,7 @@ export default function Admin() {
   const [email, setEmail] = useState('')
   const [ready, setReady] = useState(false)
   const [status, setStatus] = useState('')
+  const [resumeStatus, setResumeStatus] = useState('')
   const [entries, setEntries] = useState<ResumeEntry[]>([])
   const [sections, setSections] = useState<ManagedWorkSection[]>([])
   const [items, setItems] = useState<ManagedWorkItem[]>([])
@@ -72,9 +73,11 @@ export default function Admin() {
 
   async function uploadResume(file: File) {
     if (!supabase) return
-    if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) { setStatus('请选择 PDF 文件。'); return }
+    if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) { setResumeStatus('请选择 PDF 文件。'); return }
+    setResumeStatus('正在上传 PDF…')
     const { error } = await supabase.storage.from('portfolio-assets').upload(RESUME_FILE_PATH, file, { upsert: true, contentType: 'application/pdf', cacheControl: '60' })
-    setStatus(error?.message || `简历已上传为 ${RESUME_DOWNLOAD_NAME}。刷新前台后会出现下载按钮。`)
+    const message = error?.message || `上传成功：${RESUME_DOWNLOAD_NAME}。刷新前台后会出现下载按钮。`
+    setResumeStatus(message); setStatus(message)
   }
 
   async function removeItem(id: string) {
@@ -96,7 +99,7 @@ export default function Admin() {
 
   return <main className="admin">
     <header><h1>Resume Admin</h1><button onClick={() => supabase?.auth.signOut().then(() => setReady(false))}>退出</button></header>
-    <article className="admin-card admin-card-wide"><h2>招聘方简历 PDF / Recruiter résumé PDF</h2><p>上传会替换线上下载文件；前台自动显示 Download Resume 按钮。</p><label>上传 PDF <input type="file" accept="application/pdf,.pdf" onChange={(event) => event.target.files?.[0] && void uploadResume(event.target.files[0])} /></label></article>
+    <article className="admin-card admin-card-wide"><h2>招聘方简历 PDF / Recruiter résumé PDF</h2><p>上传会替换线上下载文件；前台自动显示 Download Resume 按钮。PDF 上传立即生效，不需要点击“保存全部修改”。</p><label>上传 PDF <input type="file" accept="application/pdf,.pdf" onChange={(event) => event.target.files?.[0] && void uploadResume(event.target.files[0])} /></label>{resumeStatus && <p className="admin-upload-status" role="status">{resumeStatus}</p>}</article>
     <h2>镜头履历 / Resume</h2>
     {entries.map((entry, index) => <article className="admin-card admin-card-wide" key={entry.id}><h3>{focusKeys[index]}</h3><Columns zh={<><Text value={entry.period_zh} onChange={(value) => editEntry(index, { period_zh: value })} placeholder="时间" /><Text value={entry.place_zh} onChange={(value) => editEntry(index, { place_zh: value })} placeholder="机构" /><Text value={entry.role_zh} onChange={(value) => editEntry(index, { role_zh: value })} placeholder="角色" /><textarea value={entry.points_zh.join('\n')} onChange={(event) => editEntry(index, { points_zh: event.target.value.split('\n') })} placeholder="每行一个中文要点" /></>} en={<><Text value={entry.period_en} onChange={(value) => editEntry(index, { period_en: value })} placeholder="Period" /><Text value={entry.place_en} onChange={(value) => editEntry(index, { place_en: value })} placeholder="Place" /><Text value={entry.role_en} onChange={(value) => editEntry(index, { role_en: value })} placeholder="Role" /><textarea value={entry.points_en.join('\n')} onChange={(event) => editEntry(index, { points_en: event.target.value.split('\n') })} placeholder="One English bullet per line" /></>} /></article>)}
     <hr /><h2>Works 项目集 / Works</h2>
