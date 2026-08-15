@@ -320,7 +320,7 @@ canvas {
     display: none;
   }
   .hm-tr {
-    top: calc(var(--m) + 116px);
+    display: none;
   }
 }
 
@@ -425,7 +425,7 @@ canvas {
   transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 .resume-download:hover { background: #d8ff59; color: #101406; transform: translateY(-1px); }
-@media (max-width: 640px) { .resume-download { top: 64px; right: 16px; font-size: 10px; } }
+@media (max-width: 640px) { .resume-download { top: 14px; right: 82px; font-size: 10px; } }
 
 /* ---------- 履历时间轴 ---------- */
 .resume {
@@ -1532,6 +1532,76 @@ canvas {
    移动端适配（≤640px）——置于文件末尾，确保覆盖前面同优先级的基础规则
    ================================================================== */
 @media (max-width: 640px) {
+  /* Mobile hero: reserve the top row for controls and reduce decorative chrome.
+     This keeps the portrait, copy, and actions from competing for the same area. */
+  .hero-chrome {
+    --m: 14px;
+  }
+  .hero-frame {
+    inset: 14px;
+  }
+  .hero-mark.tr,
+  .hero-mark.bl,
+  .hero-mark.br,
+  .hm-bl {
+    display: none;
+  }
+  .hero-meta {
+    font-size: 8px;
+    line-height: 1.45;
+    letter-spacing: 0.18em;
+  }
+  .hm-tl {
+    top: 60px;
+    left: 20px;
+    max-width: 240px;
+  }
+  .hero-meta .hm-name {
+    letter-spacing: 0.08em;
+  }
+  .lang-toggle {
+    top: 14px;
+    right: 14px;
+    min-width: 52px;
+    padding: 8px 12px;
+    font-size: 11px;
+  }
+  .resume-download {
+    top: 14px;
+    right: 78px;
+    padding: 9px 12px;
+    letter-spacing: 0.08em;
+  }
+  .hero {
+    min-height: 100svh;
+    padding: 0 18px calc(24px + env(safe-area-inset-bottom));
+  }
+  .about {
+    width: min(100%, 390px);
+    padding: 12px 16px 8px;
+    border-radius: 18px;
+    background: linear-gradient(to bottom, rgba(61, 29, 43, 0.06), rgba(61, 29, 43, 0.22));
+    text-shadow: 0 1px 4px rgba(45, 18, 30, 0.46);
+  }
+  .about-title {
+    font-size: clamp(38px, 12vw, 52px);
+    margin-bottom: 0.18em;
+  }
+  .about-body,
+  .about[lang='zh'] .about-body {
+    max-width: 330px;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+  .scroll-cue {
+    margin-top: 12px;
+    gap: 7px;
+    font-size: 9px;
+  }
+  .scroll-cue-track {
+    height: 28px;
+  }
+
   /* 3) 时间轴文案可读性：每条履历文字落在一块圆角深色半透卡片（tl-body）上，
         与明亮杂乱的 3D 背景清晰分离；标题不在卡片内，单独加紧贴字缘的 1px 暗描边。 */
   .tl-body {
