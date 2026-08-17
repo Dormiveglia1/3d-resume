@@ -9,12 +9,12 @@ import {
 import * as THREE from "three";
 import NoiseOverlay from "./ui/NoiseOverlay";
 import LoadingScreen from "./ui/LoadingScreen";
+import Scene from "./scene/Scene";
 import { useStore } from "./store";
 import { getResumeDownloadUrl } from "./data/resumeDownload";
 
-// Keep the first paint focused on the portfolio identity. The 3D renderer,
-// markdown viewer, and project/resume sections load as separate chunks.
-const Scene = lazy(() => import("./scene/Scene"));
+// Keep the first paint focused on the portfolio identity. The character scene
+// loads immediately; the below-the-fold markdown and project sections split out.
 const Resume = lazy(() => import("./ui/Resume"));
 const Works = lazy(() => import("./ui/Works"));
 
