@@ -56,6 +56,7 @@
 .admin-upload-status { margin: 12px 0 0; color: #d8ff59; }
 .admin-file-status { margin: 12px 0 0; color: #aeb9ca; }
 .admin-file-status.is-ready { color: #d8ff59; }
+.admin-cover-preview { display: block; width: min(320px, 100%); max-height: 180px; margin: 12px 0; object-fit: contain; border: 1px solid #43506a; border-radius: 8px; background: #0a0e16; }
 @media (max-width: 760px) {
   .admin-save-bar { right: 16px; bottom: 16px; max-width: calc(100vw - 32px); }
   .admin-save-bar p { font-size: 12px; }
@@ -1458,13 +1459,11 @@ canvas {
 .loading-screen {
   position: fixed;
   inset: 0;
-  /* Sit behind the identity layer: visitors see the portfolio immediately
-     while the 3D asset streams in, instead of waiting on a black screen. */
-  z-index: 9;
+  z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(243, 197, 208, 0.88);
+  background: #000;
   opacity: 1;
   transition: opacity 0.6s ease;
 }
