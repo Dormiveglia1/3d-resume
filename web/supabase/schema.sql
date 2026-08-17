@@ -75,6 +75,7 @@ alter table public.work_items add column if not exists tags_en jsonb;
 alter table public.work_items add column if not exists tags_zh jsonb;
 alter table public.work_items add column if not exists description_en text;
 alter table public.work_items add column if not exists description_zh text;
+alter table public.work_items add column if not exists gallery_urls jsonb not null default '[]'::jsonb;
 update public.work_items set title_en = coalesce(title_en, title), title_zh = coalesce(title_zh, title), meta_en = coalesce(meta_en, meta), meta_zh = coalesce(meta_zh, meta), tags_en = coalesce(tags_en, tags), tags_zh = coalesce(tags_zh, tags), description_en = coalesce(description_en, description), description_zh = coalesce(description_zh, description);
 alter table public.work_sections enable row level security;
 alter table public.work_items enable row level security;

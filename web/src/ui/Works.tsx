@@ -127,9 +127,10 @@ function WorkDetail({
 }) {
   const [bannerError, setBannerError] = useState(false)
   const localDoc = getWorkDoc(item.slug)
-  const doc = item.description || item.banner ? { title: item.name, banner: item.banner, role: item.role, tags: item.tags, link: item.link, body: item.description } : localDoc
+  const doc = item.description || item.banner || item.gallery?.length ? { title: item.name, banner: item.banner, role: item.role, tags: item.tags, link: item.link, body: item.description } : localDoc
   const title = (doc && doc.title) || item.name
   const banner = doc && doc.banner
+  const gallery = item.gallery ?? []
   // 有 md 详情时展示完整信息；无 md 时详情页只保留标题 + 统一占位文案
   const link = doc ? doc.link || item.link : null
   const tags = doc ? doc.tags || item.tags : null
@@ -205,6 +206,14 @@ function WorkDetail({
                 {data.phButtonLabel} <span aria-hidden="true">↗</span>
               </span>
             </>
+          )}
+
+          {gallery.length > 0 && (
+            <section className="wk-detail-gallery" aria-label="Project gallery">
+              {gallery.map((image, index) => (
+                <img key={image} src={image} alt={`${title} screenshot ${index + 1}`} />
+              ))}
+            </section>
           )}
 
           {link && (

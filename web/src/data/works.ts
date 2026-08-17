@@ -6,6 +6,7 @@ export interface WorkListItem {
   slug?: string
   description?: string
   banner?: string
+  gallery?: string[]
   role?: string
 }
 
