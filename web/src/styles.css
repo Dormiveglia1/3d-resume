@@ -955,7 +955,8 @@ canvas {
   align-self: flex-end;
   width: clamp(160px, 22vw, 240px);
   margin-right: clamp(12px, 6%, 80px);
-  aspect-ratio: 3 / 2;
+  /* Project covers are authored as 16:9 screenshots (for example 1920×1080). */
+  aspect-ratio: 16 / 9;
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid var(--line);
