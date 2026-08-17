@@ -950,6 +950,7 @@ canvas {
 /* 小横图：右侧错落（align-self 右对齐 + 内缩留白），不抢主体 */
 .wk-card-cover {
   position: relative;
+  isolation: isolate;
   flex: none;
   align-self: flex-end;
   width: clamp(160px, 22vw, 240px);
@@ -960,7 +961,23 @@ canvas {
   border: 1px solid var(--line);
   background: #1d2124;
 }
-.wk-card-cover img {
+.wk-card-cover-blur,
+.wk-detail-banner-blur {
+  position: absolute;
+  z-index: 0;
+  inset: -16px;
+  width: calc(100% + 32px);
+  height: calc(100% + 32px);
+  object-fit: cover;
+  filter: blur(18px) saturate(1.08);
+  opacity: 0.58;
+  transform: scale(1.06);
+}
+
+.wk-card-cover-image,
+.wk-detail-banner-image {
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 100%;
   /* Uploaded screenshots should be fully visible rather than cropped. */
@@ -1260,16 +1277,10 @@ canvas {
 /* 顶部 banner：图铺满；缺省时低饱和墨绿渐变占位 + 虚字 */
 .wk-detail-banner {
   position: relative;
+  isolation: isolate;
+  overflow: hidden;
   height: clamp(180px, 42vh, 460px);
   background: #1d2124;
-}
-.wk-detail-banner img {
-  width: 100%;
-  height: 100%;
-  /* Preserve complete uploaded project screenshots in the detail view. */
-  object-fit: contain;
-  object-position: center;
-  display: block;
 }
 .wk-detail-banner.is-ph {
   display: grid;

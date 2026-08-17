@@ -53,7 +53,15 @@ function SectionCard({
       </div>
       <div className="wk-card-cover">
         {cover && !coverError ? (
-          <img src={cover} alt="" onError={() => setCoverError(true)} />
+          <>
+            <img className="wk-card-cover-blur" src={cover} alt="" aria-hidden="true" />
+            <img
+              className="wk-card-cover-image"
+              src={cover}
+              alt={section.title}
+              onError={() => setCoverError(true)}
+            />
+          </>
         ) : (
           <div className="wk-card-cover-ph" aria-hidden="true">
             <span className="wk-card-cover-no">{section.no}</span>
@@ -151,7 +159,13 @@ function WorkDetail({
 
         {banner && !bannerError ? (
           <div className="wk-detail-banner">
-            <img src={banner} alt={title} onError={() => setBannerError(true)} />
+            <img className="wk-detail-banner-blur" src={banner} alt="" aria-hidden="true" />
+            <img
+              className="wk-detail-banner-image"
+              src={banner}
+              alt={title}
+              onError={() => setBannerError(true)}
+            />
           </div>
         ) : (
           <div className="wk-detail-banner is-ph" aria-hidden="true">
