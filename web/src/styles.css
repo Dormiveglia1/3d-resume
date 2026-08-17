@@ -410,7 +410,7 @@ canvas {
 .resume-download {
   position: fixed;
   top: 16px;
-  right: 92px;
+  right: 142px;
   z-index: 25;
   padding: 10px 15px;
   border: 1px solid rgba(244, 241, 234, 0.26);
@@ -427,7 +427,8 @@ canvas {
   transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 .resume-download:hover { background: #d8ff59; color: #101406; transform: translateY(-1px); }
-@media (max-width: 640px) { .resume-download { top: 14px; right: 82px; font-size: 10px; } }
+.github-link { position:fixed; top:16px; right:82px; z-index:110; display:grid; place-items:center; width:38px; height:38px; box-sizing:border-box; border:1px solid var(--line); border-radius:50%; color:var(--muted); background:rgba(12, 16, 24, 0.78); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); transition:color .2s ease, background .2s ease, border-color .2s ease, transform .2s ease; }.github-link svg { width:18px; height:18px; fill:currentColor; }.github-link:hover { color:var(--ink); background:rgba(20, 26, 38, 0.92); border-color:rgba(244, 241, 234, 0.3); transform:translateY(-1px); }
+@media (max-width: 640px) { .resume-download { top: 14px; right: 132px; font-size: 10px; } .github-link { top:14px; right:76px; width:36px; height:36px; } }
 
 /* ---------- 履历时间轴 ---------- */
 .resume {
