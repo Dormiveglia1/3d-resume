@@ -4,6 +4,10 @@ An interactive, bilingual portfolio for **Yuhao “Eric” Zhang**. Scroll throu
 
 > Built for roles across AI, full-stack engineering, and game development.
 
+## Preview
+
+![About Eric homepage](assets/3d-resume-home.png)
+
 ## Highlights
 
 - Scroll-driven 3D camera animation, authored in Blender and rendered with React Three Fiber
@@ -61,7 +65,7 @@ The admin area maintains Chinese and English versions of both the camera-linked 
 
 ## 3D model contract
 
-The web model is [`web/public/models/me.glb`](web/public/models/me.glb). It must retain:
+The web model is [`web/public/models/eric-resume-optimized.glb`](web/public/models/eric-resume-optimized.glb). It must retain:
 
 - `CameraAction` — camera animation clip
 - `focus-0` through `focus-5` — hero and resume anchors

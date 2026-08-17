@@ -1099,6 +1099,7 @@ canvas {
 /* 整行按钮：名靠左、数据靠右；hover 暖色微缩进 */
 .wk-line-btn {
   display: flex;
+  overflow: hidden;
   align-items: baseline;
   justify-content: space-between;
   gap: clamp(16px, 4vw, 64px);
@@ -1121,6 +1122,9 @@ canvas {
 .wk-line-name {
   min-width: 0;
   flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: clamp(13px, 1.35vw, 16px);
   font-weight: 400;
   line-height: 1.35;
@@ -1135,9 +1139,11 @@ canvas {
 
 /* 右侧数据：播放量(暖色) + 标签(弱化)，以 · 连排 */
 .wk-line-meta {
-  flex: none;
+  flex: 0 1 46%;
   display: flex;
   min-width: 0;
+  overflow: hidden;
+  flex-wrap: nowrap;
   justify-content: flex-end;
   align-items: baseline;
   gap: 0 0.6em;
@@ -1152,6 +1158,7 @@ canvas {
   white-space: nowrap;
 }
 .wk-line-tag {
+  display: block;
   min-width: 0;
   flex: 0 1 auto;
   overflow: hidden;
