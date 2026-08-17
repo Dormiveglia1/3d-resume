@@ -1,4 +1,4 @@
-import { Suspense, useRef, useState } from "react";
+import { lazy, Suspense, useRef, useState } from "react";
 import { Canvas } from "@react-three/fiber";
 import {
   motion,
@@ -7,13 +7,16 @@ import {
   type MotionValue,
 } from "framer-motion";
 import * as THREE from "three";
-import Scene from "./scene/Scene";
 import NoiseOverlay from "./ui/NoiseOverlay";
-import Resume from "./ui/Resume";
-import Works from "./ui/Works";
 import LoadingScreen from "./ui/LoadingScreen";
 import { useStore } from "./store";
 import { getResumeDownloadUrl } from "./data/resumeDownload";
+
+// Keep the first paint focused on the portfolio identity. The 3D renderer,
+// markdown viewer, and project/resume sections load as separate chunks.
+const Scene = lazy(() => import("./scene/Scene"));
+const Resume = lazy(() => import("./ui/Resume"));
+const Works = lazy(() => import("./ui/Works"));
 
 type Lang = "en" | "zh";
 
@@ -215,8 +218,10 @@ export default function App() {
       <NoiseOverlay />
       <main className="content">
         <Hero lang={lang} cueOpacity={cueOpacity} />
-        <Resume lang={lang} />
-        <Works lang={lang} innerRef={worksRef} />
+        <Suspense fallback={null}>
+          <Resume lang={lang} />
+          <Works lang={lang} innerRef={worksRef} />
+        </Suspense>
       </main>
     </>
   );

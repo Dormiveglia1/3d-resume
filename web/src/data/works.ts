@@ -21,7 +21,6 @@ export interface WorkSection {
   tagline: string
   items?: WorkListItem[]
   groups?: WorkGroup[]
-  awards?: string[]
   footer?: string
   coverUrl?: string
 }
@@ -31,7 +30,6 @@ export interface WorksLang {
   closeLabel: string
   openLabel: string
   hint: string
-  awardsLabel: string
   visitLabel: string
   detailPlaceholder: string
   phImageLabel: string
@@ -64,13 +62,13 @@ const defaultSections = {
 export const WORKS: Record<'zh' | 'en', WorksLang> = {
   zh: {
     title: '项目集', closeLabel: '返回', openLabel: '查看项目', hint: '继续下滑',
-    awardsLabel: '奖项', visitLabel: '访问项目', detailPlaceholder: '项目介绍',
+    visitLabel: '访问项目', detailPlaceholder: '项目介绍',
     phImageLabel: '图片 / 视频', phButtonLabel: '跳转链接', countLabel: (n) => `${n} 个项目`,
     sections: defaultSections.zh,
   },
   en: {
     title: 'Works', closeLabel: 'Back', openLabel: 'Explore', hint: 'Keep scrolling',
-    awardsLabel: 'Awards', visitLabel: 'Visit site', detailPlaceholder: 'Project description',
+    visitLabel: 'Visit site', detailPlaceholder: 'Project description',
     phImageLabel: 'Image / Video', phButtonLabel: 'Visit link', countLabel: (n) => `${n} projects`,
     sections: defaultSections.en,
   },

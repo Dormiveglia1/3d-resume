@@ -65,7 +65,7 @@ function SectionCard({
   )
 }
 
-// 板块内的作品清单（items 扁平 / groups 分组 / awards · footer 底部小字）
+// 板块内的作品清单（items 扁平 / groups 分组 / footer 底部小字）
 function SectionWorks({
   section,
   data,
@@ -97,15 +97,9 @@ function SectionWorks({
           </div>
         ))}
 
-      {(section.awards || section.footer) && (
+      {section.footer && (
         <div className="wk-foot">
-          {section.awards && (
-            <p className="wk-foot-line">
-              <span className="wk-foot-label">{data.awardsLabel}</span>
-              <span className="wk-foot-val accent">{section.awards.join('  ·  ')}</span>
-            </p>
-          )}
-          {section.footer && <p className="wk-foot-line">{section.footer}</p>}
+          <p className="wk-foot-line">{section.footer}</p>
         </div>
       )}
     </div>

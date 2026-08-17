@@ -833,31 +833,6 @@ canvas {
   color: var(--muted);
 }
 
-.detail .awards {
-  margin-top: 26px;
-  padding-top: 22px;
-  border-top: 1px solid var(--line);
-}
-.detail .awards .label {
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 12px;
-}
-.detail .awards .chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.detail .awards .chip {
-  font-size: 12px;
-  padding: 5px 12px;
-  border-radius: 999px;
-  border: 1px solid currentColor;
-  opacity: 0.9;
-}
-
 /* ---------- 提示 / 角标 ---------- */
 .hint {
   position: fixed;
@@ -987,7 +962,9 @@ canvas {
 .wk-card-cover img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  /* Uploaded screenshots should be fully visible rather than cropped. */
+  object-fit: contain;
+  object-position: center;
   display: block;
 }
 .wk-card-cover-ph {
@@ -1288,7 +1265,9 @@ canvas {
 .wk-detail-banner img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  /* Preserve complete uploaded project screenshots in the detail view. */
+  object-fit: contain;
+  object-position: center;
   display: block;
 }
 .wk-detail-banner.is-ph {
@@ -1479,11 +1458,13 @@ canvas {
 .loading-screen {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  /* Sit behind the identity layer: visitors see the portfolio immediately
+     while the 3D asset streams in, instead of waiting on a black screen. */
+  z-index: 9;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #000000;
+  background: rgba(243, 197, 208, 0.88);
   opacity: 1;
   transition: opacity 0.6s ease;
 }

@@ -9,7 +9,7 @@ type ResumeFile = { name: string; created_at?: string; updated_at?: string; meta
 const focusKeys = ['focus-1', 'focus-2', 'focus-3', 'focus-4', 'focus-5']
 const Text = ({ value, onChange, placeholder }: { value: string; onChange: (value: string) => void; placeholder: string }) => <input value={value} onChange={(event) => onChange(event.target.value)} placeholder={placeholder} />
 const Columns = ({ zh, en }: { zh: React.ReactNode; en: React.ReactNode }) => <div className="admin-columns"><section className="admin-language"><h4>中文</h4>{zh}</section><section className="admin-language"><h4>English</h4>{en}</section></div>
-const emptySection = (index: number): ManagedWorkSection => ({ id: crypto.randomUUID(), no: `${index + 1}`.padStart(2, '0'), sort_order: index + 1, title: '', tagline: '', footer: '', coverUrl: '', awards: [], published: true, items: [], title_en: '', title_zh: '', tagline_en: '', tagline_zh: '', footer_en: '', footer_zh: '' })
+const emptySection = (index: number): ManagedWorkSection => ({ id: crypto.randomUUID(), no: `${index + 1}`.padStart(2, '0'), sort_order: index + 1, title: '', tagline: '', footer: '', coverUrl: '', published: true, items: [], title_en: '', title_zh: '', tagline_en: '', tagline_zh: '', footer_en: '', footer_zh: '' })
 const emptyWork = (sectionId: string, index: number): ManagedWorkItem => ({ id: crypto.randomUUID(), section_id: sectionId, sort_order: index + 1, title_en: '', title_zh: '', meta_en: '', meta_zh: '', tags_en: [], tags_zh: [], link: '', description_en: '', description_zh: '', banner_url: '', published: true })
 
 export default function Admin() {
@@ -60,7 +60,7 @@ export default function Admin() {
     setStatus('正在保存全部内容…')
     const { error: resumeError } = await supabase.from('resume_entries').upsert(entries.map((entry, index) => ({ ...entry, focus_key: focusKeys[index], sort_order: index + 1 })))
     if (resumeError) { setStatus(`履历未保存：${resumeError.message}`); return }
-    const sectionPayload = sections.map((item, index) => ({ id: item.id, sort_order: index + 1, title: item.title_en, tagline: item.tagline_en, footer: item.footer_en, cover_url: item.coverUrl ?? '', awards: item.awards ?? [], published: item.published, title_en: item.title_en, title_zh: item.title_zh, tagline_en: item.tagline_en, tagline_zh: item.tagline_zh, footer_en: item.footer_en, footer_zh: item.footer_zh }))
+    const sectionPayload = sections.map((item, index) => ({ id: item.id, sort_order: index + 1, title: item.title_en, tagline: item.tagline_en, footer: item.footer_en, cover_url: item.coverUrl ?? '', published: item.published, title_en: item.title_en, title_zh: item.title_zh, tagline_en: item.tagline_en, tagline_zh: item.tagline_zh, footer_en: item.footer_en, footer_zh: item.footer_zh }))
     const { error: sectionError } = await supabase.from('work_sections').upsert(sectionPayload)
     if (sectionError) { setStatus(`Works 板块未保存：${sectionError.message}`); return }
     const itemPayload = items.map((item) => ({ ...item, title: item.title_en, meta: item.meta_en, tags: item.tags_en, description: item.description_en }))

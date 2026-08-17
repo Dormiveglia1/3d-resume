@@ -31,7 +31,7 @@ export async function loadWorks(lang: Lang): Promise<ManagedWorkSection[]> {
   if (error || !data?.length) return fallbackWorksForAdmin().sections
   return data.map((section: any) => ({
     id: section.id, sort_order: section.sort_order, no: String(section.sort_order).padStart(2, '0'), title: section[`title_${lang}`] || section.title, tagline: section[`tagline_${lang}`] || section.tagline,
-    title_en: section.title_en || section.title, title_zh: section.title_zh || section.title, tagline_en: section.tagline_en || section.tagline, tagline_zh: section.tagline_zh || section.tagline, footer_en: section.footer_en || section.footer || '', footer_zh: section.footer_zh || section.footer || '', awards: section.awards ?? [], footer: (section[`footer_${lang}`] || section.footer || ''), published: section.published, coverUrl: section.cover_url ?? '',
+    title_en: section.title_en || section.title, title_zh: section.title_zh || section.title, tagline_en: section.tagline_en || section.tagline, tagline_zh: section.tagline_zh || section.tagline, footer_en: section.footer_en || section.footer || '', footer_zh: section.footer_zh || section.footer || '', footer: (section[`footer_${lang}`] || section.footer || ''), published: section.published, coverUrl: section.cover_url ?? '',
     items: (section.work_items ?? []).filter((item: any) => item.published).sort((a: any, b: any) => a.sort_order - b.sort_order).map((item: any) => ({
       name: item[`title_${lang}`] || item.title, meta: item[`meta_${lang}`] || item.meta, tags: item[`tags_${lang}`] || item.tags || [], link: item.link, slug: item.id,
       description: item[`description_${lang}`] || item.description, banner: item.banner_url, role: '',
