@@ -383,7 +383,8 @@ canvas {
 /* ---------- 右上角中英切换 ---------- */
 .lang-toggle {
   position: fixed;
-  top: 16px;
+  /* Match the visual centre of the taller download and GitHub controls. */
+  top: 20px;
   right: 18px;
   z-index: 110;
   min-width: 52px;
@@ -1568,7 +1569,7 @@ canvas {
     letter-spacing: 0.08em;
   }
   .lang-toggle {
-    top: 14px;
+    top: 18px;
     right: 14px;
     min-width: 52px;
     padding: 8px 12px;
